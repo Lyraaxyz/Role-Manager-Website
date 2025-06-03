@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Manager - Discord Bot</title>
+    <meta name="description" content="Professional Discord role management made simple. Automate role assignments with auto roles, reaction roles, activity roles, and sticky roles.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6d94d7;
+            --primary-dark: #5a7bc4;
+            --primary-light: #8bb0e8;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --background: #ffffff;
+            --surface: #f8f9fa;
+            --border: #e9ecef;
+            --shadow: rgba(109, 148, 215, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        }
+
+        [data-theme="dark"] {
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --background: #0f0f0f;
+            --surface: #1a1a1a;
+            --border: #2a2a2a;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--background);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px var(--shadow);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] header {
+            background: rgba(15, 15, 15, 0.95);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
+            padding: 140px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(109, 148, 215, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(109, 148, 215, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: slideInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideInUp 1s ease-out 0.4s both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 8px 30px var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px var(--shadow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface);
+            transform: translateY(-3px);
+        }
+
+        .features {
+            padding: 100px 0;
+            background: var(--background);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px var(--shadow);
+            border-color: var(--primary-light);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            color: white;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .cta-section {
+            background: var(--surface);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .legal {
+            padding: 100px 0;
+            background: var(--background);
+        }
+
+        .legal-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .legal-document {
+            background: var(--surface);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 30px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .legal-document:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px var(--shadow);
+        }
+
+        .legal-document h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .legal-document h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .legal-document p, .legal-document ul {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .legal-document ul {
+            padding-left: 1.5rem;
+        }
+
+        .legal-document a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .legal-document a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-content {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .legal-content {
+                grid-template-columns: 1fr;
+            }
+
+            .legal-document {
+                padding: 2rem;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <button class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <header>
+        <nav class="container">
+            <a href="#home" class="logo">
+                Role Manager
+            </a>
+            <div class="nav-content">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#legal">Legal</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Role Manager</h1>
+                    <p>Professional Discord role management made simple. Automate role assignments with auto roles, reaction roles, activity-based roles, and sticky roles for seamless server management.</p>
+                    <div class="hero-buttons">
+                        <a href="https://discord.com/oauth2/authorize?client_id=1352791729698377858" class="btn btn-primary" target="_blank">
+                            <i class="fab fa-discord"></i>
+                            Add to Discord
+                        </a>
+                        <a href="#features" class="btn btn-secondary">
+                            <i class="fas fa-rocket"></i>
+                            Explore Features
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">Powerful Features</h2>
+                <p class="section-subtitle">Complete role management solution with configurable limits, bot inclusion options, and automatic cleanup systems</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h3>Auto Roles</h3>
+                        <p>Automatically assign up to 10 roles to new members when they join your server. Configure separate settings for bots and users with flexible permission management.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Reaction Roles</h3>
+                        <p>Set up to 20 reaction roles per server with 4 different modes: Toggle (add/remove), Add Only, Remove Only, and Reverse. Supports both standard and custom emojis.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h3>Activity Roles</h3>
+                        <p>Assign roles based on 6 activity types: Playing, Streaming, Listening, Watching, Custom status, and Competing. Up to 10 activity roles with real-time presence detection.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bookmark"></i>
+                        </div>
+                        <h3>Sticky Roles</h3>
+                        <p>Configure up to 10 sticky roles that automatically re-apply to users who had them before leaving. User data is securely stored for exactly 14 days then automatically cleaned up.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-sliders-h"></i>
+                        </div>
+                        <h3>Easy Management</h3>
+                        <p>Powerful slash commands with autocomplete functionality. List all configurations, remove specific settings, or reset everything. Includes help command and system diagnostics.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Reliable & Secure</h3>
+                        <p>Enterprise-grade security and reliability for your Discord server role management needs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready to Streamline Your Server?</h2>
+                    <p>Start automating your Discord server's role management with our comprehensive bot featuring auto roles, reaction roles, activity-based roles, and sticky roles.</p>
+                    <div class="hero-buttons">
+                        <a href="https://discord.com/oauth2/authorize?client_id=1352791729698377858" class="btn btn-primary" target="_blank">
+                            <i class="fab fa-discord"></i>
+                            Add to Server
+                        </a>
+                        <a href="https://discord.gg/Wc3tTz5UzW" class="btn btn-secondary" target="_blank">
+                            <i class="fas fa-comments"></i>
+                            Support Server
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="legal" class="legal">
+            <div class="container">
+                <h2 class="section-title">Legal Documents</h2>
+                <p class="section-subtitle">Our commitment to transparency, privacy, and your rights as a user</p>
+                
+                <div class="legal-content">
+                    <div class="legal-document">
+                        <h3>Terms of Service</h3>
+                        <p>By using any of the Utility Managers bots, you agree to the following terms and conditions.</p>
+                        
+                        <h4>Usage Guidelines</h4>
+                        <ul>
+                            <li>You must have appropriate permissions to invite and configure the bot in your server.</li>
+                            <li>Use of the bots must comply with Discord's Terms of Service and Community Guidelines.</li>
+                            <li>Misuse, abuse, or any behavior that violates these terms may result in removal of access to the bots.</li>
+                            <li>Commercial use requires explicit permission from our team.</li>
+                        </ul>
+
+                        <h4>Access & Availability</h4>
+                        <ul>
+                            <li>Access to Utility Managers bots may be modified, restricted, or revoked at any time without prior notice.</li>
+                            <li>We do not guarantee uninterrupted access, uptime, or availability of any feature.</li>
+                            <li>Maintenance windows will be announced when possible.</li>
+                        </ul>
+
+                        <h4>Data & Privacy</h4>
+                        <ul>
+                            <li>The bots do not collect or store personal data beyond what is necessary for core functionality.</li>
+                            <li>Configuration settings or server-specific data may be stored temporarily for performance and support purposes.</li>
+                            <li>No data is sold or shared with third parties under any circumstances.</li>
+                        </ul>
+
+                        <h4>Disclaimer & Liability</h4>
+                        <ul>
+                            <li>Bots are provided "as-is" and "as-available," without warranties of any kind, express or implied.</li>
+                            <li>The owner(s), developer(s), and maintainers are not liable for any damages or consequences resulting from use.</li>
+                            <li>All actions performed through the bot are the sole responsibility of the user or server administrator.</li>
+                        </ul>
+
+                        <h4>Changes to These Terms</h4>
+                        <p>These Terms of Service may be updated at any time. Continued use of the bots constitutes acceptance of any changes. Major changes will be announced in our support server.</p>
+                    </div>
+
+                    <div class="legal-document">
+                        <h3>Privacy Policy</h3>
+                        <p>By using any of the Utility Managers bots, you agree to the terms outlined in this Privacy Policy.</p>
+
+                        <h4>Data Collection</h4>
+                        <ul>
+                            <li>The bots may store certain server-level data necessary to operate their features effectively.</li>
+                            <li>This includes configuration settings and other information required to maintain functionality.</li>
+                            <li>We do not collect or store personal user data beyond what is essential for the bot's operation.</li>
+                            <li>Anonymous usage analytics may be collected to improve service quality.</li>
+                        </ul>
+
+                        <h4>Data Retention</h4>
+                        <ul>
+                            <li>Data is retained only while the bot remains active in the server.</li>
+                            <li>If the bot is removed, all associated data is automatically and permanently deleted within 30 days.</li>
+                            <li>We do not retain backups or historical data from servers once the bot has been uninstalled.</li>
+                            <li>Sticky role data is automatically purged after 14 days of inactivity.</li>
+                        </ul>
+
+                        <h4>Data Deletion Requests</h4>
+                        <ul>
+                            <li>Server owners and administrators may request deletion of stored data at any time.</li>
+                            <li>Requests will be handled within 48 hours and confirmed upon completion.</li>
+                            <li>Users can request their personal data deletion through our support channels.</li>
+                        </ul>
+
+                        <h4>Use of Data</h4>
+                        <ul>
+                            <li>Stored data is used exclusively to deliver the core functionality of the bots.</li>
+                            <li>Data is never used for advertising, profiling, or shared with third parties.</li>
+                            <li>No form of data monetization or external processing is performed.</li>
+                            <li>All data processing occurs within secure, encrypted environments.</li>
+                        </ul>
+
+                        <h4>Platform and Security</h4>
+                        <ul>
+                            <li>The bots operate fully within the Discord platform and depend on Discord's API infrastructure.</li>
+                            <li>All usage is subject to Discord's Terms of Service and Privacy Policy.</li>
+                            <li>Advanced security measures are in place to prevent unauthorized access and ensure data integrity.</li>
+                            <li>Regular security audits and updates are performed to maintain the highest standards.</li>
+                        </ul>
+
+                        <h4>Changes to This Policy</h4>
+                        <p>This Privacy Policy may be updated at any time. Material changes will be announced in our support server. Continued use of the bots following any changes constitutes acceptance of the revised policy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Utility Managers. Built with care for the Discord community.</p>
+            <div class="footer-links">
+                <a href="#legal">Privacy Policy</a>
+                <a href="#legal">Terms of Service</a>
+                <a href="https://discord.gg/Wc3tTz5UzW" target="_blank">Support Server</a>
+                <a href="#features">Features</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const scrollToTop = document.getElementById('scrollToTop');
+        const body = document.body;
+
+        function toggleTheme() {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            const icon = themeToggle.querySelector('i');
+            icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.setAttribute('data-theme', savedTheme);
+            
+            const icon = themeToggle.querySelector('i');
+            icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        function handleScroll() {
+            const scrolled = window.pageYOffset;
+            const windowHeight = window.innerHeight;
+            
+            if (scrolled > windowHeight * 0.5) {
+                scrollToTop.classList.add('visible');
+            } else {
+                scrollToTop.classList.remove('visible');
+            }
+        }
+
+        function smoothScrollTo(element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        function observeElements() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.feature-card, .legal-document, .stat-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.feature-card');
+            elements.forEach((element, index) => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.animationDelay = `${index * 0.1}s`;
+                    element.classList.add('fade-in');
+                }
+            });
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+        scrollToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    smoothScrollTo(target);
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            handleScroll();
+            animateOnScroll();
+        });
+
+        window.addEventListener('load', () => {
+            initTheme();
+            observeElements();
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroElements = document.querySelectorAll('.hero h1, .hero p, .hero-buttons');
+            heroElements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+    </script>
+</body>
+</html>
