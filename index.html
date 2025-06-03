@@ -1013,24 +1013,11 @@
                 });
             }, observerOptions);
 
-            document.querySelectorAll('.feature-card, .legal-document, .stat-item').forEach(el => {
+            document.querySelectorAll('.feature-card, .legal-document').forEach(el => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(40px) scale(0.95)';
                 el.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                 observer.observe(el);
-            });
-        }
-
-        function animateOnScroll() {
-            const elements = document.querySelectorAll('.feature-card');
-            elements.forEach((element, index) => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.style.animationDelay = `${index * 0.15}s`;
-                    element.classList.add('fade-in');
-                }
             });
         }
 
@@ -1060,10 +1047,7 @@
             });
         });
 
-        window.addEventListener('scroll', () => {
-            handleScroll();
-            animateOnScroll();
-        });
+        window.addEventListener('scroll', handleScroll);
 
         window.addEventListener('load', () => {
             observeElements();
