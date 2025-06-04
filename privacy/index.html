@@ -421,7 +421,7 @@
         }
 
         .external-link-modal.active {
-            display: flex;
+            display: flex !important;
             opacity: 1;
         }
 
@@ -435,15 +435,42 @@
             border: 1px solid var(--border);
             box-shadow: 0 20px 60px var(--shadow);
             text-align: center;
-            transform: scale(0.9) translateY(20px);
+            transform: scale(0.9);
             transition: all 0.3s ease;
             position: relative;
             overflow-y: auto;
-            margin: auto;
+            margin: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
         }
 
         .external-link-modal.active .modal-content {
-            transform: scale(1) translateY(0);
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-content {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px var(--shadow);
+            text-align: center;
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow-y: auto;
+            margin: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+
+        .external-link-modal.active .modal-content {
+            transform: translate(-50%, -50%) scale(1);
         }
 
         .modal-icon {
@@ -579,8 +606,16 @@
 
             .modal-content {
                 padding: 2rem;
-                margin: 1rem;
+                margin: 0;
                 width: calc(100% - 2rem);
+                max-width: 400px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
+
+            .external-link-modal.active .modal-content {
+                transform: translate(-50%, -50%) scale(1);
             }
 
             .modal-buttons {

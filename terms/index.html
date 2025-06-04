@@ -575,8 +575,16 @@
 
             .modal-content {
                 padding: 2rem;
-                margin: 1rem;
+                margin: 0;
                 width: calc(100% - 2rem);
+                max-width: 400px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
+
+            .external-link-modal.active .modal-content {
+                transform: translate(-50%, -50%) scale(1);
             }
 
             .modal-buttons {
