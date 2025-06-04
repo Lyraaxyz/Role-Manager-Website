@@ -1,14 +1,4 @@
-.modal-content {
-                padding: 2rem;
-            }
-
-            .modal-buttons {
-                flex-direction: column;
-            }
-
-            .modal-btn {
-                width: 100%;
-            }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -41,7 +31,8 @@
             line-height: 1.6;
             color: var(--text-primary);
             background: var(--background);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: transform;
         }
 
         .container {
@@ -64,7 +55,8 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: transform;
         }
 
         nav {
@@ -81,18 +73,19 @@
             font-weight: 700;
             color: var(--primary-color);
             text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             animation: float 6s ease-in-out infinite;
+            will-change: transform;
         }
 
         .logo:hover {
-            transform: scale(1.05) translateY(-2px);
+            transform: scale(1.05) translateY(-2px) translateZ(0);
             filter: brightness(1.1);
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-3px); }
+            0%, 100% { transform: translateY(0px) translateZ(0); }
+            50% { transform: translateY(-3px) translateZ(0); }
         }
 
         .nav-content {
@@ -112,15 +105,16 @@
             color: var(--text-primary);
             font-weight: 500;
             font-size: 1.1rem;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             position: relative;
             padding: 0.5rem 0;
             overflow: hidden;
+            will-change: transform, color, text-shadow;
         }
 
         .nav-links a:hover {
             color: var(--primary-color);
-            transform: translateY(-1px);
+            transform: translateY(-1px) translateZ(0);
             text-shadow: 0 0 10px rgba(109, 148, 215, 0.5);
         }
 
@@ -132,8 +126,9 @@
             width: 0;
             height: 2px;
             background: var(--gradient);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             border-radius: 2px;
+            will-change: width;
         }
 
         .nav-links a:hover::after {
@@ -147,6 +142,12 @@
             font-size: 1.8rem;
             color: var(--text-primary);
             cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: transform;
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1) translateZ(0);
         }
 
         .mobile-menu {
@@ -160,10 +161,16 @@
             box-shadow: 0 4px 20px var(--shadow);
             z-index: 999;
             backdrop-filter: blur(20px);
+            opacity: 0;
+            transform: translateY(-20px) translateZ(0);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: transform, opacity;
         }
 
         .mobile-menu.active {
             display: block;
+            opacity: 1;
+            transform: translateY(0) translateZ(0);
         }
 
         .mobile-menu ul {
@@ -181,11 +188,13 @@
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 500;
-            transition: background 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: background-color, transform;
         }
 
         .mobile-menu ul li a:hover {
             background: var(--surface);
+            transform: translateX(5px) translateZ(0);
         }
 
         .page-header {
@@ -207,6 +216,14 @@
                 radial-gradient(circle at 20% 80%, rgba(109, 148, 215, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(109, 148, 215, 0.1) 0%, transparent 50%);
             pointer-events: none;
+            opacity: 0;
+            animation: fadeInBackground 2s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInBackground {
+            to {
+                opacity: 1;
+            }
         }
 
         .page-header-content {
@@ -222,7 +239,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: slideInUp 1s ease-out;
+            animation: slideInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: transform, opacity;
         }
 
         .page-header p {
@@ -230,7 +248,8 @@
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
-            animation: slideInUp 1s ease-out 0.2s both;
+            animation: slideInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s both;
+            will-change: transform, opacity;
         }
 
         .breadcrumb {
@@ -250,11 +269,13 @@
         .breadcrumb a {
             color: var(--primary-color);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: color, transform;
         }
 
         .breadcrumb a:hover {
             color: var(--primary-light);
+            transform: translateY(-1px) translateZ(0);
         }
 
         .content-section {
@@ -270,6 +291,13 @@
             box-shadow: 0 8px 30px var(--shadow);
             max-width: 900px;
             margin: 0 auto;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: transform, box-shadow;
+        }
+
+        .legal-document:hover {
+            transform: translateY(-5px) translateZ(0);
+            box-shadow: 0 15px 50px var(--shadow);
         }
 
         .legal-document h2 {
@@ -286,6 +314,12 @@
             margin-bottom: 1.5rem;
             color: var(--primary-color);
             margin-top: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: color;
+        }
+
+        .legal-document h3:hover {
+            color: var(--primary-light);
         }
 
         .legal-document h3:first-of-type {
@@ -304,6 +338,12 @@
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
             line-height: 1.7;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: color;
+        }
+
+        .legal-document:hover p {
+            color: var(--text-primary);
         }
 
         .legal-document ul {
@@ -311,16 +351,29 @@
             margin-bottom: 1.5rem;
             line-height: 1.7;
             padding-left: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: color;
+        }
+
+        .legal-document:hover ul {
+            color: var(--text-primary);
         }
 
         .legal-document li {
             margin-bottom: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: transform;
+        }
+
+        .legal-document li:hover {
+            transform: translateX(5px) translateZ(0);
         }
 
         .legal-document a {
             color: var(--primary-color);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: color, text-decoration;
         }
 
         .legal-document a:hover {
@@ -352,11 +405,13 @@
             color: white;
             text-decoration: none;
             opacity: 0.8;
-            transition: opacity 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: opacity, transform;
         }
 
         .footer-links a:hover {
             opacity: 1;
+            transform: translateY(-2px) translateZ(0);
         }
 
         .scroll-to-top {
@@ -372,20 +427,21 @@
             font-size: 1.5rem;
             cursor: pointer;
             opacity: 0;
-            transform: translateY(100px) scale(0.8);
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(100px) scale(0.8) translateZ(0);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
             z-index: 1000;
             animation: pulse 3s infinite;
+            will-change: transform, opacity, box-shadow;
         }
 
         .scroll-to-top.visible {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0) scale(1) translateZ(0);
         }
 
         .scroll-to-top:hover {
-            transform: translateY(-8px) scale(1.1);
-            box-shadow: 0 15px 40px var(--shadow);
+            transform: translateY(-10px) scale(1.15) translateZ(0);
+            box-shadow: 0 20px 50px var(--shadow);
             animation: none;
         }
 
@@ -402,14 +458,15 @@
             z-index: 10000;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.2s ease, visibility 0s linear 0.2s;
-            transform: translateZ(0);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            backdrop-filter: blur(0px);
+            will-change: opacity, visibility, backdrop-filter;
         }
 
         .external-link-modal.active {
             opacity: 1;
             visibility: visible;
-            transition: opacity 0.2s ease;
+            backdrop-filter: blur(10px);
         }
 
         .modal-content {
@@ -421,13 +478,13 @@
             border: 1px solid var(--border);
             box-shadow: 0 20px 60px var(--shadow);
             text-align: center;
-            transform: translateZ(0) scale(0.9);
-            transition: transform 0.2s ease;
+            transform: scale(0.8) translateY(50px) translateZ(0);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
             will-change: transform;
         }
 
         .external-link-modal.active .modal-content {
-            transform: translateZ(0) scale(1);
+            transform: scale(1) translateY(0) translateZ(0);
         }
 
         .modal-icon {
@@ -441,9 +498,12 @@
             margin: 0 auto 1.5rem;
             color: white;
             font-size: 2rem;
-            transform: translateZ(0);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             will-change: transform;
-            backface-visibility: hidden;
+        }
+
+        .modal-content:hover .modal-icon {
+            transform: scale(1.1) rotate(5deg) translateZ(0);
         }
 
         .modal-title {
@@ -484,14 +544,14 @@
             border: none;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.15s ease;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             min-width: 120px;
             justify-content: center;
-            transform: translateZ(0);
+            will-change: transform, box-shadow;
         }
 
         .modal-btn-primary {
@@ -501,11 +561,12 @@
         }
 
         .modal-btn-primary:hover {
-            transform: translateZ(0) translateY(-1px);
+            transform: translateY(-3px) scale(1.05) translateZ(0);
+            box-shadow: 0 10px 30px var(--shadow);
         }
 
         .modal-btn-primary:active {
-            transform: translateZ(0) translateY(0);
+            transform: translateY(-1px) scale(1.02) translateZ(0);
         }
 
         .modal-btn-secondary {
@@ -515,13 +576,14 @@
         }
 
         .modal-btn-secondary:hover {
-            transform: translateZ(0) translateY(-1px);
+            transform: translateY(-3px) scale(1.05) translateZ(0);
             color: var(--text-primary);
             border-color: var(--primary-color);
+            box-shadow: 0 8px 20px rgba(109, 148, 215, 0.2);
         }
 
         .modal-btn-secondary:active {
-            transform: translateZ(0) translateY(0);
+            transform: translateY(-1px) scale(1.02) translateZ(0);
         }
 
         @keyframes pulse {
@@ -532,58 +594,59 @@
         @keyframes slideInUp {
             from {
                 opacity: 0;
-                transform: translateY(60px) scale(0.95);
+                transform: translateY(80px) scale(0.9) translateZ(0);
             }
             to {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: translateY(0) scale(1) translateZ(0);
             }
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px) translateZ(0);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) translateZ(0);
             }
         }
 
         .animate-on-scroll {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(50px) translateZ(0);
+            transition: all 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: transform, opacity;
         }
 
         .animate-on-scroll.animated {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) translateZ(0);
         }
 
         .stagger-animation {
-            transition-delay: 0.1s;
+            transition-delay: 0.15s;
         }
 
         .stagger-animation:nth-child(2) {
-            transition-delay: 0.2s;
-        }
-
-        .stagger-animation:nth-child(3) {
             transition-delay: 0.3s;
         }
 
+        .stagger-animation:nth-child(3) {
+            transition-delay: 0.45s;
+        }
+
         .stagger-animation:nth-child(4) {
-            transition-delay: 0.4s;
+            transition-delay: 0.6s;
         }
 
         .stagger-animation:nth-child(5) {
-            transition-delay: 0.5s;
+            transition-delay: 0.75s;
         }
 
         .stagger-animation:nth-child(6) {
-            transition-delay: 0.6s;
+            transition-delay: 0.9s;
         }
 
         @media (max-width: 768px) {
@@ -633,6 +696,18 @@
             footer p {
                 font-size: 0.9rem;
                 padding: 0 1rem;
+            }
+
+            .modal-content {
+                padding: 2rem;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+
+            .modal-btn {
+                width: 100%;
             }
         }
 
@@ -910,8 +985,8 @@
             const animatedElements = document.querySelectorAll('.animate-on-scroll');
             
             const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+                threshold: 0.15,
+                rootMargin: '0px 0px -100px 0px'
             };
 
             const observer = new IntersectionObserver((entries) => {
