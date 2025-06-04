@@ -31,9 +31,7 @@
             line-height: 1.6;
             color: var(--text-primary);
             background: var(--background);
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             overflow-x: hidden;
-            will-change: transform;
         }
 
         .container {
@@ -56,8 +54,7 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform;
+            transition: all 0.3s ease;
         }
 
         nav {
@@ -74,19 +71,12 @@
             font-weight: 700;
             color: var(--primary-color);
             text-decoration: none;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            animation: float 6s ease-in-out infinite;
-            will-change: transform;
+            transition: all 0.3s ease;
         }
 
         .logo:hover {
-            transform: scale(1.05) translateY(-2px) translateZ(0);
+            transform: scale(1.05);
             filter: brightness(1.1);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) translateZ(0); }
-            50% { transform: translateY(-3px) translateZ(0); }
         }
 
         .nav-content {
@@ -106,17 +96,13 @@
             color: var(--text-primary);
             font-weight: 500;
             font-size: 1.1rem;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.3s ease;
             position: relative;
             padding: 0.5rem 0;
-            overflow: hidden;
-            will-change: transform, color, text-shadow;
         }
 
         .nav-links a:hover {
             color: var(--primary-color);
-            transform: translateY(-1px) translateZ(0);
-            text-shadow: 0 0 10px rgba(109, 148, 215, 0.5);
         }
 
         .nav-links a::after {
@@ -127,17 +113,12 @@
             width: 0;
             height: 2px;
             background: var(--gradient);
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: width 0.3s ease;
             border-radius: 2px;
-            will-change: width;
         }
 
         .nav-links a:hover::after {
             width: 100%;
-        }
-
-        .nav-links a::before {
-            display: none;
         }
 
         .mobile-menu-btn {
@@ -147,12 +128,11 @@
             font-size: 1.8rem;
             color: var(--text-primary);
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform;
+            transition: all 0.3s ease;
         }
 
         .mobile-menu-btn:hover {
-            transform: scale(1.1) translateZ(0);
+            transform: scale(1.1);
         }
 
         .mobile-menu {
@@ -167,15 +147,14 @@
             z-index: 999;
             backdrop-filter: blur(20px);
             opacity: 0;
-            transform: translateY(-20px) translateZ(0);
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform, opacity;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
         }
 
         .mobile-menu.active {
             display: block;
             opacity: 1;
-            transform: translateY(0) translateZ(0);
+            transform: translateY(0);
         }
 
         .mobile-menu ul {
@@ -193,13 +172,11 @@
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: background-color, transform;
+            transition: all 0.3s ease;
         }
 
         .mobile-menu ul li a:hover {
             background: var(--surface);
-            transform: translateX(5px) translateZ(0);
         }
 
         .hero {
@@ -221,14 +198,6 @@
                 radial-gradient(circle at 20% 80%, rgba(109, 148, 215, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(109, 148, 215, 0.1) 0%, transparent 50%);
             pointer-events: none;
-            opacity: 0;
-            animation: fadeInBackground 2s ease-out 0.5s forwards;
-        }
-
-        @keyframes fadeInBackground {
-            to {
-                opacity: 1;
-            }
         }
 
         .hero-content {
@@ -244,8 +213,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: slideInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform, opacity;
         }
 
         .hero p {
@@ -255,8 +222,6 @@
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            animation: slideInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s both;
-            will-change: transform, opacity;
         }
 
         .hero-buttons {
@@ -264,8 +229,6 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            animation: slideInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0.6s both;
-            will-change: transform, opacity;
         }
 
         .btn {
@@ -277,33 +240,11 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            transform-origin: center;
-            will-change: transform, box-shadow, filter;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: left;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn:active {
-            transform: translateY(1px) scale(0.98) translateZ(0);
         }
 
         .btn-primary {
@@ -313,40 +254,21 @@
         }
 
         .btn-primary:hover {
-            transform: translateY(-6px) scale(1.03) translateZ(0);
-            box-shadow: 0 20px 60px var(--shadow);
-            filter: brightness(1.1);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px var(--shadow);
         }
 
         .btn-secondary {
             background: transparent;
             color: var(--text-primary);
             border: 2px solid var(--border);
-            position: relative;
-        }
-
-        .btn-secondary::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background: var(--surface);
-            transition: width 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            z-index: -1;
-            will-change: width;
         }
 
         .btn-secondary:hover {
-            transform: translateY(-6px) scale(1.03) translateZ(0);
+            transform: translateY(-3px);
             border-color: var(--primary-color);
             color: var(--primary-color);
-            box-shadow: 0 15px 40px rgba(109, 148, 215, 0.2);
-        }
-
-        .btn-secondary:hover::after {
-            width: 100%;
+            box-shadow: 0 10px 30px rgba(109, 148, 215, 0.2);
         }
 
         .features {
@@ -384,53 +306,15 @@
             padding: 2.5rem;
             border-radius: 20px;
             border: 1px solid var(--border);
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.3s ease;
             text-align: center;
             position: relative;
             overflow: hidden;
-            transform-origin: center;
-            will-change: transform, box-shadow, border-color;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient);
-            transform: scaleX(0) translateZ(0);
-            transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-            transform-origin: left;
-            will-change: transform;
-        }
-
-        .feature-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(109, 148, 215, 0.05) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-            pointer-events: none;
-            will-change: opacity;
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1) translateZ(0);
-        }
-
-        .feature-card:hover::after {
-            opacity: 1;
         }
 
         .feature-card:hover {
-            transform: translateY(-20px) scale(1.03) translateZ(0);
-            box-shadow: 0 30px 100px var(--shadow);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px var(--shadow);
             border-color: var(--primary-light);
         }
 
@@ -445,32 +329,11 @@
             margin: 0 auto 2rem;
             color: white;
             font-size: 2rem;
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            will-change: transform, box-shadow;
-        }
-
-        .feature-icon::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), transparent);
-            border-radius: 20px;
-            opacity: 0;
-            transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: opacity;
+            transition: all 0.3s ease;
         }
 
         .feature-card:hover .feature-icon {
-            transform: scale(1.2) rotate(12deg) translateY(-8px) translateZ(0);
-            box-shadow: 0 20px 50px rgba(109, 148, 215, 0.4);
-        }
-
-        .feature-card:hover .feature-icon::before {
-            opacity: 1;
+            transform: scale(1.1);
         }
 
         .feature-card h3 {
@@ -478,23 +341,11 @@
             font-weight: 600;
             margin-bottom: 1rem;
             color: var(--text-primary);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: color;
-        }
-
-        .feature-card:hover h3 {
-            color: var(--primary-light);
         }
 
         .feature-card p {
             color: var(--text-secondary);
             line-height: 1.7;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: color;
-        }
-
-        .feature-card:hover p {
-            color: var(--text-primary);
         }
 
         .cta-section {
@@ -545,13 +396,12 @@
             color: white;
             text-decoration: none;
             opacity: 0.8;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: opacity, transform;
+            transition: all 0.3s ease;
         }
 
         .footer-links a:hover {
             opacity: 1;
-            transform: translateY(-2px) translateZ(0);
+            transform: translateY(-2px);
         }
 
         .scroll-to-top {
@@ -567,22 +417,19 @@
             font-size: 1.5rem;
             cursor: pointer;
             opacity: 0;
-            transform: translateY(100px) scale(0.8) translateZ(0);
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform: translateY(100px) scale(0.8);
+            transition: all 0.3s ease;
             z-index: 1000;
-            animation: pulse 3s infinite;
-            will-change: transform, opacity, box-shadow;
         }
 
         .scroll-to-top.visible {
             opacity: 1;
-            transform: translateY(0) scale(1) translateZ(0);
+            transform: translateY(0) scale(1);
         }
 
         .scroll-to-top:hover {
-            transform: translateY(-10px) scale(1.15) translateZ(0);
-            box-shadow: 0 20px 50px var(--shadow);
-            animation: none;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 40px var(--shadow);
         }
 
         .external-link-modal {
@@ -598,15 +445,13 @@
             z-index: 10000;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            backdrop-filter: blur(0px);
-            will-change: opacity, visibility, backdrop-filter;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .external-link-modal.active {
             opacity: 1;
             visibility: visible;
-            backdrop-filter: blur(10px);
         }
 
         .modal-content {
@@ -618,13 +463,12 @@
             border: 1px solid var(--border);
             box-shadow: 0 20px 60px var(--shadow);
             text-align: center;
-            transform: scale(0.8) translateY(50px) translateZ(0);
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform;
+            transform: scale(0.9);
+            transition: all 0.3s ease;
         }
 
         .external-link-modal.active .modal-content {
-            transform: scale(1) translateY(0) translateZ(0);
+            transform: scale(1);
         }
 
         .modal-icon {
@@ -638,12 +482,6 @@
             margin: 0 auto 1.5rem;
             color: white;
             font-size: 2rem;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform;
-        }
-
-        .modal-content:hover .modal-icon {
-            transform: scale(1.1) rotate(5deg) translateZ(0);
         }
 
         .modal-title {
@@ -684,14 +522,13 @@
             border: none;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.3s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             min-width: 120px;
             justify-content: center;
-            will-change: transform, box-shadow;
         }
 
         .modal-btn-primary {
@@ -701,12 +538,8 @@
         }
 
         .modal-btn-primary:hover {
-            transform: translateY(-3px) scale(1.05) translateZ(0);
-            box-shadow: 0 10px 30px var(--shadow);
-        }
-
-        .modal-btn-primary:active {
-            transform: translateY(-1px) scale(1.02) translateZ(0);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow);
         }
 
         .modal-btn-secondary {
@@ -716,77 +549,8 @@
         }
 
         .modal-btn-secondary:hover {
-            transform: translateY(-3px) scale(1.05) translateZ(0);
             color: var(--text-primary);
             border-color: var(--primary-color);
-            box-shadow: 0 8px 20px rgba(109, 148, 215, 0.2);
-        }
-
-        .modal-btn-secondary:active {
-            transform: translateY(-1px) scale(1.02) translateZ(0);
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(109, 148, 215, 0.5); }
-            50% { box-shadow: 0 0 0 15px rgba(109, 148, 215, 0); }
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(80px) scale(0.9) translateZ(0);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1) translateZ(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px) translateZ(0);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) translateZ(0);
-            }
-        }
-
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(50px) translateZ(0);
-            transition: all 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform, opacity;
-        }
-
-        .animate-on-scroll.animated {
-            opacity: 1;
-            transform: translateY(0) translateZ(0);
-        }
-
-        .stagger-animation {
-            transition-delay: 0.15s;
-        }
-
-        .stagger-animation:nth-child(2) {
-            transition-delay: 0.3s;
-        }
-
-        .stagger-animation:nth-child(3) {
-            transition-delay: 0.45s;
-        }
-
-        .stagger-animation:nth-child(4) {
-            transition-delay: 0.6s;
-        }
-
-        .stagger-animation:nth-child(5) {
-            transition-delay: 0.75s;
-        }
-
-        .stagger-animation:nth-child(6) {
-            transition-delay: 0.9s;
         }
 
         @media (max-width: 768px) {
@@ -939,11 +703,11 @@
 
         <section id="features" class="features">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">Powerful Features</h2>
-                <p class="section-subtitle animate-on-scroll">Complete role management solution for Discord servers made simple and effective.</p>
+                <h2 class="section-title">Powerful Features</h2>
+                <p class="section-subtitle">Complete role management solution for Discord servers made simple and effective.</p>
                 
                 <div class="features-grid">
-                    <div class="feature-card animate-on-scroll stagger-animation">
+                    <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-user-plus"></i>
                         </div>
@@ -951,7 +715,7 @@
                         <p>Automatically assign up to 10 roles to new members when they join your server. Works for both regular users and bots.</p>
                     </div>
 
-                    <div class="feature-card animate-on-scroll stagger-animation">
+                    <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-heart"></i>
                         </div>
@@ -959,7 +723,7 @@
                         <p>Set up to 20 reaction roles per server with 4 different modes: Toggle (add/remove), Add Only, Remove Only, and Reverse. Supports both standard and custom emojis.</p>
                     </div>
 
-                    <div class="feature-card animate-on-scroll stagger-animation">
+                    <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-gamepad"></i>
                         </div>
@@ -967,7 +731,7 @@
                         <p>Assign roles based on Discord activity types: Playing, Streaming, Listening, Watching, Custom status, and Competing. Up to 10 activity roles that work automatically.</p>
                     </div>
 
-                    <div class="feature-card animate-on-scroll stagger-animation">
+                    <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-bookmark"></i>
                         </div>
@@ -975,7 +739,7 @@
                         <p>Configure up to 10 sticky roles that automatically re-apply to users who had them before leaving. User data is securely stored and managed.</p>
                     </div>
 
-                    <div class="feature-card animate-on-scroll stagger-animation">
+                    <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-sliders-h"></i>
                         </div>
@@ -983,7 +747,7 @@
                         <p>Simple slash commands to manage everything. List all settings, remove specific configurations, or reset everything. Includes help commands and easy setup.</p>
                     </div>
 
-                    <div class="feature-card animate-on-scroll stagger-animation">
+                    <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
@@ -994,7 +758,7 @@
             </div>
         </section>
 
-        <section class="cta-section animate-on-scroll">
+        <section class="cta-section">
             <div class="container">
                 <div class="cta-content">
                     <h2>Ready to Streamline Your Server?</h2>
@@ -1056,13 +820,6 @@
             } else {
                 scrollToTop.classList.remove('visible');
             }
-        }
-
-        function smoothScrollTo(element) {
-            element.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
         }
 
         function showExternalLinkModal(url, linkType) {
@@ -1161,38 +918,12 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    smoothScrollTo(target);
+                    target.scrollIntoView({ behavior: 'smooth' });
                 }
             });
         });
 
         window.addEventListener('scroll', handleScroll);
-
-        function initScrollAnimations() {
-            const animatedElements = document.querySelectorAll('.animate-on-scroll');
-            
-            const observerOptions = {
-                threshold: 0.15,
-                rootMargin: '0px 0px -100px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animated');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            animatedElements.forEach(element => {
-                observer.observe(element);
-            });
-        }
-
-        window.addEventListener('load', () => {
-            initScrollAnimations();
-        });
     </script>
 </body>
 </html>

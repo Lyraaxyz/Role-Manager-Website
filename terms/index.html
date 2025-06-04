@@ -31,8 +31,6 @@
             line-height: 1.6;
             color: var(--text-primary);
             background: var(--background);
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform;
         }
 
         .container {
@@ -55,8 +53,7 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform;
+            transition: all 0.3s ease;
         }
 
         nav {
@@ -73,19 +70,12 @@
             font-weight: 700;
             color: var(--primary-color);
             text-decoration: none;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            animation: float 6s ease-in-out infinite;
-            will-change: transform;
+            transition: all 0.3s ease;
         }
 
         .logo:hover {
-            transform: scale(1.05) translateY(-2px) translateZ(0);
+            transform: scale(1.05);
             filter: brightness(1.1);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) translateZ(0); }
-            50% { transform: translateY(-3px) translateZ(0); }
         }
 
         .nav-content {
@@ -105,17 +95,13 @@
             color: var(--text-primary);
             font-weight: 500;
             font-size: 1.1rem;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.3s ease;
             position: relative;
             padding: 0.5rem 0;
-            overflow: hidden;
-            will-change: transform, color, text-shadow;
         }
 
         .nav-links a:hover {
             color: var(--primary-color);
-            transform: translateY(-1px) translateZ(0);
-            text-shadow: 0 0 10px rgba(109, 148, 215, 0.5);
         }
 
         .nav-links a::after {
@@ -126,9 +112,8 @@
             width: 0;
             height: 2px;
             background: var(--gradient);
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: width 0.3s ease;
             border-radius: 2px;
-            will-change: width;
         }
 
         .nav-links a:hover::after {
@@ -142,12 +127,11 @@
             font-size: 1.8rem;
             color: var(--text-primary);
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform;
+            transition: all 0.3s ease;
         }
 
         .mobile-menu-btn:hover {
-            transform: scale(1.1) translateZ(0);
+            transform: scale(1.1);
         }
 
         .mobile-menu {
@@ -162,15 +146,14 @@
             z-index: 999;
             backdrop-filter: blur(20px);
             opacity: 0;
-            transform: translateY(-20px) translateZ(0);
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform, opacity;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
         }
 
         .mobile-menu.active {
             display: block;
             opacity: 1;
-            transform: translateY(0) translateZ(0);
+            transform: translateY(0);
         }
 
         .mobile-menu ul {
@@ -188,13 +171,11 @@
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: background-color, transform;
+            transition: all 0.3s ease;
         }
 
         .mobile-menu ul li a:hover {
             background: var(--surface);
-            transform: translateX(5px) translateZ(0);
         }
 
         .page-header {
@@ -216,14 +197,6 @@
                 radial-gradient(circle at 20% 80%, rgba(109, 148, 215, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(109, 148, 215, 0.1) 0%, transparent 50%);
             pointer-events: none;
-            opacity: 0;
-            animation: fadeInBackground 2s ease-out 0.5s forwards;
-        }
-
-        @keyframes fadeInBackground {
-            to {
-                opacity: 1;
-            }
         }
 
         .page-header-content {
@@ -239,8 +212,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: slideInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform, opacity;
         }
 
         .page-header p {
@@ -248,34 +219,6 @@
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
-            animation: slideInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s both;
-            will-change: transform, opacity;
-        }
-
-        .breadcrumb {
-            background: var(--surface);
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .breadcrumb-content {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .breadcrumb a {
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: color, transform;
-        }
-
-        .breadcrumb a:hover {
-            color: var(--primary-light);
-            transform: translateY(-1px) translateZ(0);
         }
 
         .content-section {
@@ -291,12 +234,11 @@
             box-shadow: 0 8px 30px var(--shadow);
             max-width: 900px;
             margin: 0 auto;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform, box-shadow;
+            transition: all 0.3s ease;
         }
 
         .legal-document:hover {
-            transform: translateY(-5px) translateZ(0);
+            transform: translateY(-5px);
             box-shadow: 0 15px 50px var(--shadow);
         }
 
@@ -314,12 +256,6 @@
             margin-bottom: 1.5rem;
             color: var(--primary-color);
             margin-top: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: color;
-        }
-
-        .legal-document h3:hover {
-            color: var(--primary-light);
         }
 
         .legal-document h3:first-of-type {
@@ -338,12 +274,6 @@
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
             line-height: 1.7;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: color;
-        }
-
-        .legal-document:hover p {
-            color: var(--text-primary);
         }
 
         .legal-document ul {
@@ -351,29 +281,16 @@
             margin-bottom: 1.5rem;
             line-height: 1.7;
             padding-left: 1.5rem;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: color;
-        }
-
-        .legal-document:hover ul {
-            color: var(--text-primary);
         }
 
         .legal-document li {
             margin-bottom: 0.5rem;
-            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform;
-        }
-
-        .legal-document li:hover {
-            transform: translateX(5px) translateZ(0);
         }
 
         .legal-document a {
             color: var(--primary-color);
             text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: color, text-decoration;
+            transition: all 0.3s ease;
         }
 
         .legal-document a:hover {
@@ -405,13 +322,12 @@
             color: white;
             text-decoration: none;
             opacity: 0.8;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: opacity, transform;
+            transition: all 0.3s ease;
         }
 
         .footer-links a:hover {
             opacity: 1;
-            transform: translateY(-2px) translateZ(0);
+            transform: translateY(-2px);
         }
 
         .scroll-to-top {
@@ -427,22 +343,19 @@
             font-size: 1.5rem;
             cursor: pointer;
             opacity: 0;
-            transform: translateY(100px) scale(0.8) translateZ(0);
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform: translateY(100px) scale(0.8);
+            transition: all 0.3s ease;
             z-index: 1000;
-            animation: pulse 3s infinite;
-            will-change: transform, opacity, box-shadow;
         }
 
         .scroll-to-top.visible {
             opacity: 1;
-            transform: translateY(0) scale(1) translateZ(0);
+            transform: translateY(0) scale(1);
         }
 
         .scroll-to-top:hover {
-            transform: translateY(-10px) scale(1.15) translateZ(0);
-            box-shadow: 0 20px 50px var(--shadow);
-            animation: none;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 40px var(--shadow);
         }
 
         .external-link-modal {
@@ -458,15 +371,13 @@
             z-index: 10000;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            backdrop-filter: blur(0px);
-            will-change: opacity, visibility, backdrop-filter;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .external-link-modal.active {
             opacity: 1;
             visibility: visible;
-            backdrop-filter: blur(10px);
         }
 
         .modal-content {
@@ -478,13 +389,12 @@
             border: 1px solid var(--border);
             box-shadow: 0 20px 60px var(--shadow);
             text-align: center;
-            transform: scale(0.8) translateY(50px) translateZ(0);
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform;
+            transform: scale(0.9);
+            transition: all 0.3s ease;
         }
 
         .external-link-modal.active .modal-content {
-            transform: scale(1) translateY(0) translateZ(0);
+            transform: scale(1);
         }
 
         .modal-icon {
@@ -498,12 +408,6 @@
             margin: 0 auto 1.5rem;
             color: white;
             font-size: 2rem;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform;
-        }
-
-        .modal-content:hover .modal-icon {
-            transform: scale(1.1) rotate(5deg) translateZ(0);
         }
 
         .modal-title {
@@ -544,14 +448,13 @@
             border: none;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.3s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             min-width: 120px;
             justify-content: center;
-            will-change: transform, box-shadow;
         }
 
         .modal-btn-primary {
@@ -561,12 +464,8 @@
         }
 
         .modal-btn-primary:hover {
-            transform: translateY(-3px) scale(1.05) translateZ(0);
-            box-shadow: 0 10px 30px var(--shadow);
-        }
-
-        .modal-btn-primary:active {
-            transform: translateY(-1px) scale(1.02) translateZ(0);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow);
         }
 
         .modal-btn-secondary {
@@ -576,77 +475,8 @@
         }
 
         .modal-btn-secondary:hover {
-            transform: translateY(-3px) scale(1.05) translateZ(0);
             color: var(--text-primary);
             border-color: var(--primary-color);
-            box-shadow: 0 8px 20px rgba(109, 148, 215, 0.2);
-        }
-
-        .modal-btn-secondary:active {
-            transform: translateY(-1px) scale(1.02) translateZ(0);
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(109, 148, 215, 0.5); }
-            50% { box-shadow: 0 0 0 15px rgba(109, 148, 215, 0); }
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(80px) scale(0.9) translateZ(0);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1) translateZ(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px) translateZ(0);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) translateZ(0);
-            }
-        }
-
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(50px) translateZ(0);
-            transition: all 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform, opacity;
-        }
-
-        .animate-on-scroll.animated {
-            opacity: 1;
-            transform: translateY(0) translateZ(0);
-        }
-
-        .stagger-animation {
-            transition-delay: 0.15s;
-        }
-
-        .stagger-animation:nth-child(2) {
-            transition-delay: 0.3s;
-        }
-
-        .stagger-animation:nth-child(3) {
-            transition-delay: 0.45s;
-        }
-
-        .stagger-animation:nth-child(4) {
-            transition-delay: 0.6s;
-        }
-
-        .stagger-animation:nth-child(5) {
-            transition-delay: 0.75s;
-        }
-
-        .stagger-animation:nth-child(6) {
-            transition-delay: 0.9s;
         }
 
         @media (max-width: 768px) {
@@ -771,16 +601,6 @@
         </div>
     </header>
 
-    <section class="breadcrumb animate-on-scroll">
-        <div class="container">
-            <div class="breadcrumb-content">
-                <a href="/">Home</a>
-                <i class="fas fa-chevron-right"></i>
-                <span>Terms of Service</span>
-            </div>
-        </div>
-    </section>
-
     <section class="page-header">
         <div class="container">
             <div class="page-header-content">
@@ -793,40 +613,40 @@
     <main>
         <section class="content-section">
             <div class="container">
-                <div class="legal-document animate-on-scroll">
+                <div class="legal-document">
                     <p>By using any of the Utility Managers bots, you agree to the following terms and conditions.</p>
                     
-                    <h3 class="animate-on-scroll stagger-animation">Usage Guidelines</h3>
-                    <ul class="animate-on-scroll stagger-animation">
+                    <h3>Usage Guidelines</h3>
+                    <ul>
                         <li>You must have appropriate permissions to invite and configure the bot in your server.</li>
                         <li>Use of the bots must comply with Discord's Terms of Service and Community Guidelines.</li>
                         <li>Misuse, abuse, or any behavior that violates these terms may result in removal of access to the bots.</li>
                         <li>Commercial use requires explicit permission from our team.</li>
                     </ul>
 
-                    <h3 class="animate-on-scroll stagger-animation">Access & Availability</h3>
-                    <ul class="animate-on-scroll stagger-animation">
+                    <h3>Access & Availability</h3>
+                    <ul>
                         <li>Access to Utility Managers bots may be modified, restricted, or revoked at any time without prior notice.</li>
                         <li>We do not guarantee uninterrupted access, uptime, or availability of any feature.</li>
                         <li>Maintenance windows will be announced when possible.</li>
                     </ul>
 
-                    <h3 class="animate-on-scroll stagger-animation">Data & Privacy</h3>
-                    <ul class="animate-on-scroll stagger-animation">
+                    <h3>Data & Privacy</h3>
+                    <ul>
                         <li>The bots do not collect or store personal data beyond what is necessary for core functionality.</li>
                         <li>Configuration settings or server-specific data may be stored temporarily for performance and support purposes.</li>
                         <li>No data is sold or shared with third parties under any circumstances.</li>
                     </ul>
 
-                    <h3 class="animate-on-scroll stagger-animation">Disclaimer & Liability</h3>
-                    <ul class="animate-on-scroll stagger-animation">
+                    <h3>Disclaimer & Liability</h3>
+                    <ul>
                         <li>Bots are provided "as-is" and "as-available," without warranties of any kind, express or implied.</li>
                         <li>The owner(s), developer(s), and maintainers are not liable for any damages or consequences resulting from use.</li>
                         <li>All actions performed through the bot are the sole responsibility of the user or server administrator.</li>
                     </ul>
 
-                    <h3 class="animate-on-scroll stagger-animation">Changes to These Terms</h3>
-                    <ul class="animate-on-scroll stagger-animation">
+                    <h3>Changes to These Terms</h3>
+                    <ul>
                         <li>These Terms of Service may be updated at any time. Continued use of the bots constitutes acceptance of any changes. Major changes will be announced in our support server.</li>
                     </ul>
                 </div>
@@ -834,7 +654,7 @@
         </section>
     </main>
 
-    <footer class="animate-on-scroll">
+    <footer>
         <div class="container">
             <p>&copy; 2025 Utility Managers. Built with care for the Discord community.</p>
             <div class="footer-links">
@@ -970,32 +790,6 @@
         });
 
         window.addEventListener('scroll', handleScroll);
-
-        function initScrollAnimations() {
-            const animatedElements = document.querySelectorAll('.animate-on-scroll');
-            
-            const observerOptions = {
-                threshold: 0.15,
-                rootMargin: '0px 0px -100px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animated');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            animatedElements.forEach(element => {
-                observer.observe(element);
-            });
-        }
-
-        window.addEventListener('load', () => {
-            initScrollAnimations();
-        });
     </script>
 </body>
 </html>
