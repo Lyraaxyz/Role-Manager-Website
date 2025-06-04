@@ -221,6 +221,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: slideInUp 0.8s ease-out;
         }
 
         .page-header p {
@@ -228,6 +229,29 @@
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
+            animation: slideInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .content-section {
@@ -379,8 +403,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background: rgba(0, 0, 0, 0.8);
             display: flex;
             align-items: center;
@@ -403,11 +427,14 @@
             padding: 2.5rem;
             max-width: 500px;
             width: 90%;
+            max-height: 90vh;
             border: 1px solid var(--border);
             box-shadow: 0 20px 60px var(--shadow);
             text-align: center;
             transform: scale(0.9);
             transition: all 0.3s ease;
+            position: relative;
+            overflow-y: auto;
         }
 
         .external-link-modal.active .modal-content {
@@ -630,7 +657,7 @@
     <main>
         <section class="content-section">
             <div class="container">
-                <div class="legal-document">
+                <div class="legal-document scroll-animate">
                     <p>By using any of the Utility Managers bots, you agree to the following terms and conditions.</p>
                     
                     <h3>Usage Guidelines</h3>
@@ -807,6 +834,31 @@
         });
 
         window.addEventListener('scroll', handleScroll);
+
+        function initScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.scroll-animate');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initScrollAnimations();
+        });
     </script>
 </body>
 </html>
