@@ -753,54 +753,6 @@
                 transform: translateY(0) scale(1);
             }
         }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-60px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0) scale(1);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(60px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0) scale(1);
-            }
-        }
-
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
-
-        .slide-in-left {
-            opacity: 0;
-            animation: slideInLeft 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
-
-        .slide-in-right {
-            opacity: 0;
-            animation: slideInRight 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
     </style>
 </head>
 <body>
@@ -977,8 +929,6 @@
         const cancelBtn = document.getElementById('cancelBtn');
 
         let pendingExternalUrl = null;
-        let featureCards = [];
-        let cardObserver = null;
 
         function toggleMobileMenu() {
             mobileMenu.classList.toggle('active');
@@ -1005,41 +955,6 @@
             element.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
-            });
-        }
-
-        function observeElements() {
-            featureCards = document.querySelectorAll('.feature-card');
-            
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            if (cardObserver) {
-                cardObserver.disconnect();
-            }
-
-            cardObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting && !entry.target.hasAttribute('data-animated')) {
-                        const allCards = Array.from(featureCards);
-                        const cardIndex = allCards.indexOf(entry.target);
-                        
-                        setTimeout(() => {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0) scale(1)';
-                            entry.target.setAttribute('data-animated', 'true');
-                        }, cardIndex * 150);
-                    }
-                });
-            }, observerOptions);
-
-            featureCards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(40px) scale(0.95)';
-                card.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                cardObserver.observe(card);
             });
         }
 
@@ -1145,17 +1060,6 @@
         });
 
         window.addEventListener('scroll', handleScroll);
-
-        window.addEventListener('load', () => {
-            observeElements();
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const heroElements = document.querySelectorAll('.hero h1, .hero p, .hero-buttons');
-            heroElements.forEach((el, index) => {
-                el.style.animationDelay = `${index * 0.2}s`;
-            });
-        });
     </script>
 </body>
 </html>
