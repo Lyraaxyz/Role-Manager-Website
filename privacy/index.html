@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Role Manager</title>
     <meta name="description" content="Privacy Policy for Role Manager Discord Bot. Data collection, retention, deletion policies, and security measures.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path fill='%236d94d7' d='M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24V360H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64z'/></svg>">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -405,7 +406,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -414,6 +415,8 @@
             visibility: hidden;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .external-link-modal.active {
@@ -426,19 +429,20 @@
             border-radius: 20px;
             padding: 2.5rem;
             max-width: 500px;
-            width: 90%;
+            width: 100%;
             max-height: 90vh;
             border: 1px solid var(--border);
             box-shadow: 0 20px 60px var(--shadow);
             text-align: center;
-            transform: scale(0.9);
+            transform: scale(0.9) translateY(20px);
             transition: all 0.3s ease;
             position: relative;
             overflow-y: auto;
+            margin: auto;
         }
 
         .external-link-modal.active .modal-content {
-            transform: scale(1);
+            transform: scale(1) translateY(0);
         }
 
         .modal-icon {
@@ -714,8 +718,6 @@
             <div class="footer-links">
                 <a href="/privacy/">Privacy Policy</a>
                 <a href="/terms/">Terms of Service</a>
-                <a href="https://discord.gg/Wc3tTz5UzW" target="_blank" class="external-link">Support Server</a>
-                <a href="/#features">Features</a>
             </div>
         </div>
     </footer>
@@ -778,14 +780,24 @@
                 continueBtn.innerHTML = '<i class="fas fa-external-link-alt"></i> Visit Link';
             }
             
-            externalLinkModal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            externalLinkModal.classList.add('active');
+            
+            setTimeout(() => {
+                externalLinkModal.style.display = 'flex';
+            }, 10);
         }
 
         function hideExternalLinkModal() {
             externalLinkModal.classList.remove('active');
             document.body.style.overflow = '';
             pendingExternalUrl = null;
+            
+            setTimeout(() => {
+                if (!externalLinkModal.classList.contains('active')) {
+                    externalLinkModal.style.display = 'none';
+                }
+            }, 300);
         }
 
         function handleExternalLink(event) {
