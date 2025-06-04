@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Role Manager</title>
+    <meta name="description" content="Terms of Service for Role Manager Discord Bot. Usage guidelines, access, data policies, and disclaimers.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6d94d7;
+            --primary-dark: #5a7bc4;
+            --primary-light: #8bb0e8;
+            --text-primary: #ffffff;
+            --text-secondary: #c0c0c0;
+            --background: #1a1a1a;
+            --surface: #252525;
+            --border: #3a3a3a;
+            --shadow: rgba(0, 0, 0, 0.4);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--background);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            width: 100%;
+            padding: 0 40px;
+        }
+
+        header {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px var(--shadow);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .logo:hover {
+            transform: scale(1.05) translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            padding: 0.5rem 0;
+            overflow: hidden;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-1px);
+            text-shadow: 0 0 10px rgba(109, 148, 215, 0.5);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 100px;
+            left: 0;
+            right: 0;
+            background: var(--background);
+            border-top: 1px solid var(--border);
+            box-shadow: 0 4px 20px var(--shadow);
+            z-index: 999;
+            backdrop-filter: blur(20px);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .mobile-menu ul li {
+            padding: 0;
+        }
+
+        .mobile-menu ul li a {
+            display: block;
+            padding: 1rem 2rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .mobile-menu ul li a:hover {
+            background: var(--surface);
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
+            padding: 170px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(109, 148, 215, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(109, 148, 215, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            animation: slideInUp 1s ease-out 0.2s both;
+        }
+
+        .breadcrumb {
+            background: var(--surface);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .breadcrumb-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-light);
+        }
+
+        .content-section {
+            padding: 80px 0;
+            background: var(--background);
+        }
+
+        .legal-document {
+            background: var(--surface);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 30px var(--shadow);
+            max-width: 900px;
+            margin: 0 auto;
+            animation: slideInUp 1s ease-out 0.4s both;
+        }
+
+        .legal-document h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .legal-document h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            margin-top: 2.5rem;
+        }
+
+        .legal-document h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .legal-document h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .legal-document p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .legal-document ul {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            padding-left: 1.5rem;
+        }
+
+        .legal-document li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-document a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .legal-document a:hover {
+            text-decoration: underline;
+            color: var(--primary-light);
+        }
+
+
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(100px) scale(0.8);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 1000;
+            animation: pulse 3s infinite;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 15px 40px var(--shadow);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(109, 148, 215, 0.5); }
+            50% { box-shadow: 0 0 0 15px rgba(109, 148, 215, 0); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-content {
+                gap: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .page-header p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+
+            .legal-document {
+                padding: 2rem;
+                margin: 0 1rem;
+            }
+
+            .legal-document h2 {
+                font-size: 2rem;
+            }
+
+            .legal-document h3 {
+                font-size: 1.5rem;
+            }
+
+            .footer-links {
+                gap: 1rem;
+                flex-direction: column;
+            }
+
+            footer {
+                padding: 2rem 0;
+            }
+
+            footer p {
+                font-size: 0.9rem;
+                padding: 0 1rem;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <header>
+        <nav class="nav-container">
+            <a href="/" class="logo">
+                Role Manager
+            </a>
+            <div class="nav-content">
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/#features">Features</a></li>
+                    <li><a href="/terms/">Terms</a></li>
+                    <li><a href="/privacy/">Privacy</a></li>
+                    <li><a href="https://discord.gg/Wc3tTz5UzW" target="_blank">Support</a></li>
+                </ul>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/#features">Features</a></li>
+                <li><a href="/terms/">Terms</a></li>
+                <li><a href="/privacy/">Privacy</a></li>
+                <li><a href="https://discord.gg/Wc3tTz5UzW" target="_blank">Support</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <a href="/">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Terms of Service</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>Terms of Service</h1>
+                <p>Please read these terms carefully before using Role Manager Discord Bot</p>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section class="content-section">
+            <div class="container">
+                <div class="legal-document">
+                    <p>By using any of the Utility Managers bots, you agree to the following terms and conditions.</p>
+                    
+                    <h3>Usage Guidelines</h3>
+                    <ul>
+                        <li>You must have appropriate permissions to invite and configure the bot in your server.</li>
+                        <li>Use of the bots must comply with Discord's Terms of Service and Community Guidelines.</li>
+                        <li>Misuse, abuse, or any behavior that violates these terms may result in removal of access to the bots.</li>
+                        <li>Commercial use requires explicit permission from our team.</li>
+                    </ul>
+
+                    <h3>Access & Availability</h3>
+                    <ul>
+                        <li>Access to Utility Managers bots may be modified, restricted, or revoked at any time without prior notice.</li>
+                        <li>We do not guarantee uninterrupted access, uptime, or availability of any feature.</li>
+                        <li>Maintenance windows will be announced when possible.</li>
+                    </ul>
+
+                    <h3>Data & Privacy</h3>
+                    <ul>
+                        <li>The bots do not collect or store personal data beyond what is necessary for core functionality.</li>
+                        <li>Configuration settings or server-specific data may be stored temporarily for performance and support purposes.</li>
+                        <li>No data is sold or shared with third parties under any circumstances.</li>
+                    </ul>
+
+                    <h3>Disclaimer & Liability</h3>
+                    <ul>
+                        <li>Bots are provided "as-is" and "as-available," without warranties of any kind, express or implied.</li>
+                        <li>The owner(s), developer(s), and maintainers are not liable for any damages or consequences resulting from use.</li>
+                        <li>All actions performed through the bot are the sole responsibility of the user or server administrator.</li>
+                    </ul>
+
+                    <h3>Changes to These Terms</h3>
+                    <ul>
+                        <li>These Terms of Service may be updated at any time. Continued use of the bots constitutes acceptance of any changes. Major changes will be announced in our support server.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Utility Managers. Built with care for the Discord community.</p>
+            <div class="footer-links">
+                <a href="/privacy/">Privacy Policy</a>
+                <a href="/terms/">Terms of Service</a>
+                <a href="https://discord.gg/Wc3tTz5UzW" target="_blank">Support Server</a>
+                <a href="/#features">Features</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const scrollToTop = document.getElementById('scrollToTop');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('active')) {
+                icon.className = 'fas fa-times';
+            } else {
+                icon.className = 'fas fa-bars';
+            }
+        }
+
+        function handleScroll() {
+            const scrolled = window.pageYOffset;
+            const windowHeight = window.innerHeight;
+            
+            if (scrolled > windowHeight * 0.3) {
+                scrollToTop.classList.add('visible');
+            } else {
+                scrollToTop.classList.remove('visible');
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        scrollToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.className = 'fas fa-bars';
+            });
+        });
+
+        window.addEventListener('scroll', handleScroll);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.page-header h1, .page-header p, .legal-document');
+            elements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+    </script>
+</body>
+</html>
