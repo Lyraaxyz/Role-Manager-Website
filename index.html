@@ -1137,6 +1137,8 @@
         const cancelBtn = document.getElementById('cancelBtn');
 
         let pendingExternalUrl = null;
+        let featureCards = [];
+        let cardObserver = null;
 
         function toggleMobileMenu() {
             mobileMenu.classList.toggle('active');
@@ -1167,27 +1169,57 @@
         }
 
         function observeElements() {
+            featureCards = document.querySelectorAll('.feature-card');
+            const legalDocuments = document.querySelectorAll('.legal-document');
+            
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
             };
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
+            if (cardObserver) {
+                cardObserver.disconnect();
+            }
+
+            cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && !entry.target.hasAttribute('data-animated')) {
+                        const allCards = Array.from(featureCards);
+                        const cardIndex = allCards.indexOf(entry.target);
+                        
                         setTimeout(() => {
                             entry.target.style.opacity = '1';
                             entry.target.style.transform = 'translateY(0) scale(1)';
-                        }, index * 100);
+                            entry.target.setAttribute('data-animated', 'true');
+                        }, cardIndex * 150);
                     }
                 });
             }, observerOptions);
 
-            document.querySelectorAll('.feature-card, .legal-document').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(40px) scale(0.95)';
-                el.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                observer.observe(el);
+            const legalObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting && !entry.target.hasAttribute('data-animated')) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0) scale(1)';
+                            entry.target.setAttribute('data-animated', 'true');
+                        }, index * 200);
+                    }
+                });
+            }, observerOptions);
+
+            featureCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(40px) scale(0.95)';
+                card.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                cardObserver.observe(card);
+            });
+
+            legalDocuments.forEach(doc => {
+                doc.style.opacity = '0';
+                doc.style.transform = 'translateY(40px) scale(0.95)';
+                doc.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                legalObserver.observe(doc);
             });
         }
 
