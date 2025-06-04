@@ -598,23 +598,7 @@
                 padding: 0 1rem;
             }
 
-            .modal-content {
-                padding: 2rem;
-                width: 95%;
-                max-width: 400px;
-            }
 
-            .modal-buttons {
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-            }
-
-            .modal-btn {
-                width: calc(100% - 2rem);
-                max-width: 300px;
-                margin: 0 auto;
-            }
         }
 
         html {
@@ -623,26 +607,7 @@
     </style>
 </head>
 <body>
-    <div class="external-link-modal" id="externalLinkModal">
-        <div class="modal-content">
-            <div class="modal-icon" id="modalIcon">
-                <i class="fab fa-discord"></i>
-            </div>
-            <h3 class="modal-title" id="modalTitle">Join Our Discord!</h3>
-            <p class="modal-description" id="modalDescription">You're about to visit our official Discord server where you can get support, updates, and connect with the community!</p>
-            <div class="modal-url" id="modalUrl"></div>
-            <div class="modal-buttons">
-                <button class="modal-btn modal-btn-primary" id="continueBtn">
-                    <i class="fas fa-rocket"></i>
-                    Let's Go!
-                </button>
-                <button class="modal-btn modal-btn-secondary" id="cancelBtn">
-                    <i class="fas fa-times"></i>
-                    Maybe Later
-                </button>
-            </div>
-        </div>
-    </div>
+
 
     <button class="scroll-to-top" id="scrollToTop">
         <i class="fas fa-arrow-up"></i>
@@ -659,7 +624,7 @@
                     <li><a href="/#features">Features</a></li>
                     <li><a href="/terms/">Terms</a></li>
                     <li><a href="/privacy/">Privacy</a></li>
-                    <li><a href="https://discord.gg/Wc3tTz5UzW" target="_blank" class="external-link">Support</a></li>
+                    <li><a href="https://discord.gg/Wc3tTz5UzW" target="_blank">Support</a></li>
                 </ul>
                 <button class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
@@ -672,7 +637,7 @@
                 <li><a href="/#features">Features</a></li>
                 <li><a href="/terms/">Terms</a></li>
                 <li><a href="/privacy/">Privacy</a></li>
-                <li><a href="https://discord.gg/Wc3tTz5UzW" target="_blank" class="external-link">Support</a></li>
+                <li><a href="https://discord.gg/Wc3tTz5UzW" target="_blank">Support</a></li>
             </ul>
         </div>
     </header>
@@ -754,12 +719,6 @@
         const scrollToTop = document.getElementById('scrollToTop');
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const mobileMenu = document.getElementById('mobileMenu');
-        const externalLinkModal = document.getElementById('externalLinkModal');
-        const modalUrl = document.getElementById('modalUrl');
-        const continueBtn = document.getElementById('continueBtn');
-        const cancelBtn = document.getElementById('cancelBtn');
-
-        let pendingExternalUrl = null;
 
         function toggleMobileMenu() {
             mobileMenu.classList.toggle('active');
@@ -782,63 +741,7 @@
             }
         }
 
-        function showExternalLinkModal(url, linkType) {
-            pendingExternalUrl = url;
-            const modalIcon = document.getElementById('modalIcon');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalDescription = document.getElementById('modalDescription');
-            const continueBtn = document.getElementById('continueBtn');
-            
-            modalUrl.textContent = url;
-            
-            if (linkType === 'invite') {
-                modalIcon.innerHTML = '<i class="fab fa-discord"></i>';
-                modalTitle.textContent = 'Add Role Manager to Discord!';
-                modalDescription.textContent = 'You\'re about to add our Role Manager bot to your Discord server. Get ready to automate your server management!';
-                continueBtn.innerHTML = '<i class="fab fa-discord"></i> Add to Server';
-            } else if (linkType === 'support') {
-                modalIcon.innerHTML = '<i class="fab fa-discord"></i>';
-                modalTitle.textContent = 'Join Our Support Server!';
-                modalDescription.textContent = 'You\'re about to visit our official Discord support server where our team and community are ready to help!';
-                continueBtn.innerHTML = '<i class="fas fa-rocket"></i> Join Server';
-            } else {
-                modalIcon.innerHTML = '<i class="fab fa-discord"></i>';
-                modalTitle.textContent = 'Visit Discord Link';
-                modalDescription.textContent = 'You\'re about to visit one of our official Discord links!';
-                continueBtn.innerHTML = '<i class="fas fa-external-link-alt"></i> Visit Link';
-            }
-            
-            document.body.style.overflow = 'hidden';
-            externalLinkModal.style.display = 'flex';
-            
-            setTimeout(() => {
-                externalLinkModal.classList.add('active');
-            }, 10);
-        }
 
-        function hideExternalLinkModal() {
-            externalLinkModal.classList.remove('active');
-            document.body.style.overflow = '';
-            pendingExternalUrl = null;
-            
-            setTimeout(() => {
-                externalLinkModal.style.display = 'none';
-            }, 300);
-        }
-
-        function handleExternalLink(event) {
-            event.preventDefault();
-            const url = event.currentTarget.getAttribute('href');
-            
-            let linkType = 'general';
-            if (url.includes('oauth2/authorize')) {
-                linkType = 'invite';
-            } else if (url.includes('discord.gg/')) {
-                linkType = 'support';
-            }
-            
-            showExternalLinkModal(url, linkType);
-        }
 
         mobileMenuBtn.addEventListener('click', toggleMobileMenu);
         scrollToTop.addEventListener('click', () => {
@@ -848,30 +751,7 @@
             });
         });
 
-        continueBtn.addEventListener('click', () => {
-            if (pendingExternalUrl) {
-                window.open(pendingExternalUrl, '_blank');
-                hideExternalLinkModal();
-            }
-        });
 
-        cancelBtn.addEventListener('click', hideExternalLinkModal);
-
-        externalLinkModal.addEventListener('click', (event) => {
-            if (event.target === externalLinkModal) {
-                hideExternalLinkModal();
-            }
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && externalLinkModal.classList.contains('active')) {
-                hideExternalLinkModal();
-            }
-        });
-
-        document.querySelectorAll('.external-link').forEach(link => {
-            link.addEventListener('click', handleExternalLink);
-        });
 
         document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
